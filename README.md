@@ -16,8 +16,7 @@ Each Gate will give you some seconds for rewards.
 ## Control
 
 - W.A.S.D to move your stick.
-- Left Shit to micro adjust your position.
 
-- Press Left Mouse & Drag Down while aiming.
+- Press Left Mouse & Drag Backwards to Aim.
 
 - Release Mouse to hit the ball.
