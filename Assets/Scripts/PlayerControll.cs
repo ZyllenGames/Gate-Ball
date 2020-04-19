@@ -12,6 +12,7 @@ public class PlayerControll : MonoBehaviour
     float yaw, pitch;
     float m_Speed;
 
+
     private void Start()
     {
         Cursor.visible = false;

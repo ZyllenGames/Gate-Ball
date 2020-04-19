@@ -16,12 +16,26 @@ public class LevelManager : MonoBehaviour
     Level m_CurLevel;
     int CurGatePassed = 0;
 
+    public System.Action OnLevelWin;
+
+    public int CurLevelID { get => m_CurLevelID;}
+
     private void Awake()
     {
         ScoreArea.OnPassed += OnOneGatePassed;
     }
 
     private void Start()
+    {
+        GenerateLevel();
+    }
+
+    public void LevelContinue()
+    {
+        m_CurLevelID++;
+        GenerateLevel();
+    }
+    public void LevelRestart()
     {
         GenerateLevel();
     }
@@ -38,7 +52,8 @@ public class LevelManager : MonoBehaviour
         {
             float xPos = Random.Range(-4f, 4f) * 10;
             float zPos = Random.Range(-4f, 4f) * 10;
-            GameObject newGate = Instantiate(GatePrefab, new Vector3(xPos, 0, zPos), Quaternion.identity);
+            float yRot = Random.Range(-90f, 90f);
+            GameObject newGate = Instantiate(GatePrefab, new Vector3(xPos, 0, zPos), Quaternion.EulerAngles(Vector3.up * yRot));
             GameObjectManager.Instance.AddGate(newGate);
             newGate.transform.parent = Gates;
         }
@@ -47,7 +62,7 @@ public class LevelManager : MonoBehaviour
         {
             float xPos = Random.Range(-4f, 4f) * 10;
             float zPos = Random.Range(-4f, 4f) * 10;
-            GameObject newBall = Instantiate(BallPrefab, new Vector3(xPos, 1, zPos), Quaternion.identity);
+            GameObject newBall = Instantiate(BallPrefab, new Vector3(xPos, 2, zPos), Quaternion.identity);
             GameObjectManager.Instance.AddBall(newBall);
             newBall.transform.parent = Balls;
         }
@@ -55,22 +70,13 @@ public class LevelManager : MonoBehaviour
         GameObject newPlayer = Instantiate(PlayerPrefab, PlayerStartTransform.position, PlayerStartTransform.rotation);
         GameObjectManager.Instance.AddPlayer(newPlayer);
     }
-
-    void LevelWin()
-    {
-        m_CurLevelID++;
-        GenerateLevel();
-    }
-    void LevelRestart()
-    {
-        GenerateLevel();
-    }
-
     void OnOneGatePassed()
     {
         CurGatePassed++;
         if (CurGatePassed == m_CurLevel.GateNum)
-            LevelWin();
+        {
+            OnLevelWin();
+        }
     }
 
     private void OnDestroy()
@@ -91,6 +97,6 @@ public class Level
         ID = id;
         Seed = id;
         GateNum = id + 1;
-        BallNum = (10 - id) < 2 ? 1 : (10 - id);
+        BallNum = id / 2 + 1;
     }
 }

@@ -10,6 +10,7 @@ public class Stick : MonoBehaviour
     public Transform LineTrail;
 
     public float SpeedMultiplier;
+    public float MaxDragDistance;
 
     Rigidbody m_Rigidbody;
 
@@ -29,6 +30,7 @@ public class Stick : MonoBehaviour
         else if(Input.GetMouseButtonUp(0))
         {
             CalculateInitialSpeed();
+            AudioManager.Instance.Play2DSound("Hit");
             LineTrail.localScale = new Vector3(1, 1, 1);
         }
 
@@ -36,11 +38,11 @@ public class Stick : MonoBehaviour
         {
             float mouseY = Input.GetAxis("Mouse Y");
             float distToEnd = (End.position - transform.position).magnitude;
-            if(distToEnd > 2)
+            if(distToEnd > 2 && distToEnd < MaxDragDistance)
                 transform.Translate(Vector3.forward * mouseY);
             else
             {
-                if(mouseY < 0)
+                if(mouseY < 0 && distToEnd < MaxDragDistance)
                     transform.Translate(Vector3.forward * mouseY);
             }
             LineTrail.localScale = new Vector3(1, 1, distToEnd);
@@ -71,6 +73,14 @@ public class Stick : MonoBehaviour
         {
             transform.position = Vector3.MoveTowards(transform.position, Origin.position, 0.2f);
             yield return null;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.collider.tag == "Ball")
+        {
+            TimeManager.Instance.StartTimer();
         }
     }
 }

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ScoreArea : MonoBehaviour
 {
+    public GameObject SparkingEffect;
+    public GameObject PointLightEffect;
+    public GameObject ScroreEffectPrefab;
     public float RewardSeconds;
     bool m_HasPassed = false;
 
@@ -15,7 +18,17 @@ public class ScoreArea : MonoBehaviour
         {
             m_HasPassed = true;
             TimeManager.Instance.AddTime(RewardSeconds);
+
+            GameObject newScoreEffect = Instantiate(ScroreEffectPrefab, transform.position, transform.rotation);
+            Destroy(newScoreEffect, 2);
+
+            SparkingEffect.SetActive(false);
+            PointLightEffect.SetActive(false);
+            GetComponent<MeshRenderer>().enabled = false;
+
             OnPassed();
+
+            AudioManager.Instance.Play2DSound("GatePassed");
         }
     }
 }
