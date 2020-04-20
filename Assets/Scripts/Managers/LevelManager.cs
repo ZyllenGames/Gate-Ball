@@ -91,6 +91,7 @@ public class Level
     public int GateNum;
     public int BallNum;
     public int Seed;
+    public List<Color> ListColors;
 
     public Level(int id)
     {
@@ -98,5 +99,17 @@ public class Level
         Seed = id;
         GateNum = id + 1;
         BallNum = id / 2 + 1;
+        if(id < 4)
+        {
+            ListColors.Add(Color.yellow);
+            if(id > 1)
+                ListColors.Add(Color.blue);
+        }
+        else
+        {
+            ListColors.Add(Color.yellow);
+            ListColors.Add(Color.blue);
+            ListColors.Add(Color.red);
+        }
     }
 }
