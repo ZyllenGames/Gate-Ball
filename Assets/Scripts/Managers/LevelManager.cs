@@ -15,6 +15,7 @@ public class LevelManager : MonoBehaviour
     int m_CurLevelID = 0;
     Level m_CurLevel;
     int CurGatePassed = 0;
+    bool m_CurLevelFailed = false;
 
     public System.Action OnLevelWin;
 
@@ -23,6 +24,7 @@ public class LevelManager : MonoBehaviour
     private void Awake()
     {
         ScoreArea.OnPassed += OnOneGatePassed;
+        TimeManager.Instance.OnTimeOver += OnLevelFailed;
     }
 
     private void Start()
@@ -48,6 +50,8 @@ public class LevelManager : MonoBehaviour
         m_CurLevel = new Level(m_CurLevelID);
         Random.InitState(m_CurLevel.Seed);
 
+        int numColor = m_CurLevel.ListColors.Count;
+
         for (int i = 0; i < m_CurLevel.GateNum; i++)
         {
             float xPos = Random.Range(-4f, 4f) * 10;
@@ -56,6 +60,9 @@ public class LevelManager : MonoBehaviour
             GameObject newGate = Instantiate(GatePrefab, new Vector3(xPos, 0, zPos), Quaternion.EulerAngles(Vector3.up * yRot));
             GameObjectManager.Instance.AddGate(newGate);
             newGate.transform.parent = Gates;
+
+            Color newcolor = m_CurLevel.ListColors[i % numColor];
+            newGate.GetComponentInChildren<ScoreArea>().InitializeColor(newcolor);
         }
 
         for (int i = 0; i < m_CurLevel.BallNum; i++)
@@ -65,18 +72,30 @@ public class LevelManager : MonoBehaviour
             GameObject newBall = Instantiate(BallPrefab, new Vector3(xPos, 2, zPos), Quaternion.identity);
             GameObjectManager.Instance.AddBall(newBall);
             newBall.transform.parent = Balls;
+
+            Color newcolor = m_CurLevel.ListColors[i % numColor];
+            newBall.GetComponent<Ball>().Color = newcolor;
+            newBall.GetComponent<MeshRenderer>().material.color = newcolor;
         }
 
         GameObject newPlayer = Instantiate(PlayerPrefab, PlayerStartTransform.position, PlayerStartTransform.rotation);
         GameObjectManager.Instance.AddPlayer(newPlayer);
+
+        m_CurLevelFailed = false;
     }
     void OnOneGatePassed()
     {
         CurGatePassed++;
         if (CurGatePassed == m_CurLevel.GateNum)
         {
-            OnLevelWin();
+            if(!m_CurLevelFailed)
+                OnLevelWin();
         }
+    }
+
+    void OnLevelFailed()
+    {
+        m_CurLevelFailed = true;
     }
 
     private void OnDestroy()
@@ -99,7 +118,8 @@ public class Level
         Seed = id;
         GateNum = id + 1;
         BallNum = id / 2 + 1;
-        if(id < 4)
+        ListColors = new List<Color>();
+        if (id < 4)
         {
             ListColors.Add(Color.yellow);
             if(id > 1)

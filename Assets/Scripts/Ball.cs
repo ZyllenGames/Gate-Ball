@@ -6,5 +6,5 @@ public class Ball : MonoBehaviour
 {
     Color m_Color;
 
-    public Color {get{return m_Color;}; set {m_Color = value; }};
+    public Color Color { get => m_Color; set => m_Color = value; }
 }

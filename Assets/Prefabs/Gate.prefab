@@ -1295,7 +1295,7 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxes: 0
   ColorModule:
-    enabled: 1
+    enabled: 0
     gradient:
       serializedVersion: 2
       minMaxState: 1
@@ -4779,9 +4779,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1150054510}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.07714285, z: 0}
-  m_LocalScale: {x: 0.2898551, y: 0.28571427, z: 4.2105265}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2362475198107004795}
   m_RootOrder: 1
@@ -4799,7 +4799,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 0.9559069, g: 0.9716981, b: 0, a: 1}
   m_Intensity: 0.6
-  m_Range: 18.06
+  m_Range: 9.83
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -4953,7 +4953,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2362475196789821730}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 09098161eb5f2624f9eb4d6da83a93cc, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -5046,7 +5046,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2362475197189188676}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 09098161eb5f2624f9eb4d6da83a93cc, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -5139,7 +5139,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2362475197369361117}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 09098161eb5f2624f9eb4d6da83a93cc, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -5223,7 +5223,7 @@ GameObject:
   - component: {fileID: 2362475198107004793}
   - component: {fileID: 2362475198107004792}
   - component: {fileID: 1808369104}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: ScoreArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5281,7 +5281,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SparkingEffect: {fileID: 311748891}
   PointLightEffect: {fileID: 1150054510}
-  ScroreEffectPrefab: {fileID: 9221297589095032235, guid: e88dd7c0c409a3947ba7026811610ea2,
+  ScoreEffectPrefab: {fileID: 9221297589095032235, guid: e88dd7c0c409a3947ba7026811610ea2,
     type: 3}
   RewardSeconds: 5
 --- !u!23 &1808369104

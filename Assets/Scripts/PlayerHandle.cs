@@ -26,7 +26,7 @@ public class PlayerHandle : MonoBehaviour
     bool m_ShootingMode = false;
 
     float CurMouseY = 0;
-    float BottomMouseY = -10;
+    float BottomMouseY = -15;
     float CurMouseYChange = 0;
 
     Vector3 m_OriginPos;
@@ -34,6 +34,9 @@ public class PlayerHandle : MonoBehaviour
     private void Awake()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void Update()
@@ -75,8 +78,6 @@ public class PlayerHandle : MonoBehaviour
             CurMouseYChange = CurMouseY - temp;
             LineTrail.localScale = new Vector3(1, 1, -CurMouseY);
         }
-
-       
     }
 
     private Vector3 CalculateOriginPos()
@@ -92,7 +93,7 @@ public class PlayerHandle : MonoBehaviour
             if(!m_AcurateMode)
                 pitch -= Input.GetAxis("Mouse Y") * MouseSensitivity;
             yaw += Input.GetAxis("Mouse X") * MouseSensitivity;
-            pitch = Mathf.Clamp(pitch, -80, 60);
+            pitch = Mathf.Clamp(pitch, -10, 30);
 
             MainCamera.transform.LookAt(CameraTarget);
             CameraTarget.eulerAngles = new Vector3(pitch, yaw, 0);
@@ -108,7 +109,7 @@ public class PlayerHandle : MonoBehaviour
             Vector3 direction = Quaternion.AngleAxis(yaw, Vector3.up) * m_CurInputDirection;
             m_Rigidbody.MovePosition(m_Rigidbody.position + direction * m_Speed * Time.fixedDeltaTime);
 
-            m_Rigidbody.MovePosition(m_Rigidbody.position + transform.forward * CurMouseYChange * 4);
+            m_Rigidbody.MovePosition(m_Rigidbody.position + transform.forward * CurMouseYChange);
         }
         else
         {

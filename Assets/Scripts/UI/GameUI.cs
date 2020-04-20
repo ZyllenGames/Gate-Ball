@@ -81,7 +81,7 @@ public class GameUI : MonoBehaviour
         yield return new WaitForSeconds(1);
         LevelWinPanel.SetActive(false);
         LevelManager.LevelContinue();
-        TimeManager.Instance.Initialize(LevelManager.CurLevelID * 10 + 10);
+        TimeManager.Instance.Initialize(LevelManager.CurLevelID * 7 + 10);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         LevelStartFade();
@@ -99,7 +99,7 @@ public class GameUI : MonoBehaviour
         yield return new WaitForSeconds(1);
         LevelLosePanel.SetActive(false);
         LevelManager.LevelRestart();
-        TimeManager.Instance.Initialize(LevelManager.CurLevelID * 10 + 10);
+        TimeManager.Instance.Initialize(LevelManager.CurLevelID * 7 + 10);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         LevelStartFade();
@@ -116,5 +116,10 @@ public class GameUI : MonoBehaviour
     {
         FadeOut.SetActive(true);
         FadeIn.SetActive(false);
+    }
+
+    public void OnMenuButton()
+    {
+        Application.Quit();
     }
 }
