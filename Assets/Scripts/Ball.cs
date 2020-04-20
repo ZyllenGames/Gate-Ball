@@ -4,15 +4,7 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    Color m_Color;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public Color {get{return m_Color;}; set {m_Color = value; }};
 }
