@@ -8,6 +8,8 @@ public class PlayerHandle : MonoBehaviour
 {
     public Camera MainCamera;
     public Transform CameraTarget;
+    public Transform LineTrail;
+
     Rigidbody m_Rigidbody;
 
     public float PlayerSpeed;
@@ -62,6 +64,8 @@ public class PlayerHandle : MonoBehaviour
             m_ShootingMode = true;
             CurMouseYChange = 0;
             m_OriginPos = CalculateOriginPos();
+            AudioManager.Instance.Play2DSound("Hit");
+            LineTrail.localScale = new Vector3(1, 1, 1);
         }
         else if(Input.GetMouseButton(0))
         {
@@ -69,6 +73,7 @@ public class PlayerHandle : MonoBehaviour
             CurMouseY += Input.GetAxis("Mouse Y");
             CurMouseY = Mathf.Clamp(CurMouseY, BottomMouseY, 0);
             CurMouseYChange = CurMouseY - temp;
+            LineTrail.localScale = new Vector3(1, 1, -CurMouseY);
         }
 
        
@@ -119,6 +124,14 @@ public class PlayerHandle : MonoBehaviour
                     m_Rigidbody.velocity = Vector3.zero;
                 } 
             } 
+        }
+    }
+    
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.collider.tag == "Ball")
+        {
+            TimeManager.Instance.StartTimer();
         }
     }
 }
