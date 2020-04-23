@@ -19,6 +19,7 @@ public class PlayerHandle : MonoBehaviour
     public float ForceDistRatio;
 
     float yaw, pitch;
+    float m_CurYaw;
     float m_Speed;
     Vector3 m_CurInputDirection;
 
@@ -78,6 +79,14 @@ public class PlayerHandle : MonoBehaviour
             CurMouseYChange = CurMouseY - temp;
             LineTrail.localScale = new Vector3(1, 1, -CurMouseY);
         }
+
+        if(!m_ShootingMode)
+        {
+            if(!m_AcurateMode)
+                pitch -= Input.GetAxis("Mouse Y") * MouseSensitivity;
+            yaw += Input.GetAxis("Mouse X") * MouseSensitivity;
+            pitch = Mathf.Clamp(pitch, -10, 30);
+        }
     }
 
     private Vector3 CalculateOriginPos()
@@ -86,30 +95,17 @@ public class PlayerHandle : MonoBehaviour
         return shootRay.GetPoint(-CurMouseY);
     }
 
-    private void LateUpdate()
-    {
-        if(!m_ShootingMode)
-        {
-            if(!m_AcurateMode)
-                pitch -= Input.GetAxis("Mouse Y") * MouseSensitivity;
-            yaw += Input.GetAxis("Mouse X") * MouseSensitivity;
-            pitch = Mathf.Clamp(pitch, -10, 30);
-
-            MainCamera.transform.LookAt(CameraTarget);
-            CameraTarget.eulerAngles = new Vector3(pitch, yaw, 0);
-        }
-    }
-
     private void FixedUpdate()
     {
         if (!m_ShootingMode)
         {
-            m_Rigidbody.MoveRotation(Quaternion.Euler(new Vector3(0, yaw, 0)));
+            m_CurYaw = Mathf.Lerp(m_CurYaw, yaw, 0.3f);
+            m_Rigidbody.MoveRotation(Quaternion.Euler(new Vector3(0, m_CurYaw, 0)));
 
             Vector3 direction = Quaternion.AngleAxis(yaw, Vector3.up) * m_CurInputDirection;
             m_Rigidbody.MovePosition(m_Rigidbody.position + direction * m_Speed * Time.fixedDeltaTime);
 
-            m_Rigidbody.MovePosition(m_Rigidbody.position + transform.forward * CurMouseYChange);
+            m_Rigidbody.MovePosition(m_Rigidbody.position + transform.forward * CurMouseYChange * 0.5f);
         }
         else
         {
