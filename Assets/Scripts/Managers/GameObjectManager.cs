@@ -7,7 +7,7 @@ public class GameObjectManager : GenericSingleton<GameObjectManager>
     List<GameObject> GateList;
     List<GameObject> BallList;
     GameObject Player;
-
+    GameObject CameraTarget;
 
     private void Awake()
     {
@@ -26,6 +26,7 @@ public class GameObjectManager : GenericSingleton<GameObjectManager>
             Destroy(ball);
         }
         Destroy(Player);
+        Destroy(CameraTarget);
         GateList.Clear();
         BallList.Clear();
     }
@@ -43,5 +44,9 @@ public class GameObjectManager : GenericSingleton<GameObjectManager>
     public void AddPlayer(GameObject player)
     {
         Player = player;
+    }
+    public void AddCamera(GameObject camera)
+    {
+        CameraTarget = camera;
     }
 }

@@ -7,6 +7,7 @@ public class LevelManager : MonoBehaviour
     public GameObject GatePrefab;
     public GameObject BallPrefab;
     public GameObject PlayerPrefab;
+    public GameObject CameraTargetPrefab;
 
     public Transform PlayerStartTransform;
     public Transform Balls;
@@ -79,7 +80,10 @@ public class LevelManager : MonoBehaviour
         }
 
         GameObject newPlayer = Instantiate(PlayerPrefab, PlayerStartTransform.position, PlayerStartTransform.rotation);
+        GameObject newCamera = Instantiate(CameraTargetPrefab, PlayerStartTransform.position, PlayerStartTransform.rotation);
+        newCamera.GetComponent<CameraControll>().FollowerTrans = newPlayer.transform;
         GameObjectManager.Instance.AddPlayer(newPlayer);
+        GameObjectManager.Instance.AddCamera(newCamera);
 
         m_CurLevelFailed = false;
     }

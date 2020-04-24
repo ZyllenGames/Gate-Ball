@@ -5,14 +5,23 @@ using UnityEngine.SceneManagement;
 
 public class MenuUI : MonoBehaviour
 {
+    public GameObject MainMenu;
+    public GameObject Tutorial;
+
     public void OnStartButton()
     {
-        SceneManager.LoadScene("Game");
-        AudioManager.Instance.PlayMusic("Game");
+        MainMenu.SetActive(false);
+        Tutorial.SetActive(true);
     }
 
     public void OnExitButton()
     {
         Application.Quit();
+    }
+
+    public void OnContinueButton()
+    {
+        SceneManager.LoadScene("Game");
+        AudioManager.Instance.PlayMusic("Game");
     }
 }
