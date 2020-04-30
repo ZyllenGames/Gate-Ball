@@ -40,6 +40,9 @@ public class PlayerControll : MonoBehaviour
 
 		m_PlayerState = PlayerState.MOVE;
 		m_CurPullBack = 0;
+
+		if (Application.platform == RuntimePlatform.WebGLPlayer)
+			MouseSensitivity = 1;
 	}
 
 	private void Update()

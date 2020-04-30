@@ -10,6 +10,11 @@ public class CameraControll : MonoBehaviour
 
     float yaw, pitch;
 
+    private void Awake()
+    {
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+            MouseSensitivity = 1;
+    }
 
     private void Update()
     {
