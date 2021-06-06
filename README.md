@@ -20,7 +20,7 @@ Clock will count down as soon as you hit the first ball. So make a strategy befo
 - Press Left Mouse & Drag Backwards to Aim.
 - Release Mouse to hit the ball.
 
-<img src="https://github.com/ZyllenGames/Gate-Ball/blob/e18ee822589830f27144fd1642b0a2ed886fa6b9/ScreenShots/HitBall.gif" width = "480" height = "300" div align=center />
+<img src="https://raw.githubusercontent.com/ZyllenGames/Gate-Ball/master/ScreenShots/HitBall.gif" width = "480" height = "300" div align=center />
 
 
 ## Try it out!
